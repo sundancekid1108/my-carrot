@@ -5,7 +5,7 @@ const CommunityDetail: NextPage = () => {
 	return (
 		<>
 			<div>
-				<span className="inline-flex my-3 ml-4 items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+				<span className="inline-flex my-3 ml-4 items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
 					testtag
 				</span>
 				<div className="flex mb-3 px-4 cursor-pointer pb-3  border-b items-center space-x-3">
@@ -25,31 +25,30 @@ const CommunityDetail: NextPage = () => {
 					<div className="flex px-4 space-x-5 mt-3 text-gray-700 py-2.5 border-t border-b-[2px]  w-full">
 						<span className="flex space-x-2 items-center text-sm">
 							<svg
+								xmlns="http://www.w3.org/2000/svg"
 								className="w-4 h-4"
-								fill="none"
-								stroke="currentColor"
 								viewBox="0 0 24 24"
-								xmlns="http://www.w3.org/2000/svg">
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth="2"
-									d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+								fill="none"
+								stroke="#000000"
+								strokeWidth="2"
+								strokeLinecap="round"
+								strokeLinejoin="round">
+								<polyline points="9 11 12 14 22 4"></polyline>
+								<path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
 							</svg>
 							<span>궁금해요 1</span>
 						</span>
 						<span className="flex space-x-2 items-center text-sm">
 							<svg
+								xmlns="http://www.w3.org/2000/svg"
 								className="w-4 h-4"
-								fill="none"
-								stroke="currentColor"
 								viewBox="0 0 24 24"
-								xmlns="http://www.w3.org/2000/svg">
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth="2"
-									d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+								fill="none"
+								stroke="#000000"
+								strokeWidth="2"
+								strokeLinecap="round"
+								strokeLinejoin="round">
+								<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
 							</svg>
 							<span>답변 1</span>
 						</span>
