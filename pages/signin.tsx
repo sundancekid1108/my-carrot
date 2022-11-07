@@ -1,9 +1,7 @@
 import type { NextPage } from "next";
 import { useState } from "react";
+import { cls } from "../libs/utils";
 
-const cls = (...classnames: string[]) => {
-	return classnames.join(" ");
-};
 
 const Signin: NextPage = () => {
 	const [method, setMethod] = useState("");
