@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 const Profile: NextPage = () => {
 	return (
 		<>
-			<div className="py-10 px-4">
+			<div className="py-10 px-5">
 				<div className="flex items-center space-x-3">
 					<div className="w-16 h-16 bg-slate-500 rounded-full" />
 					<div className="flex flex-col">
