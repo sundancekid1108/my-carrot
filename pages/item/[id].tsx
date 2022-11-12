@@ -1,13 +1,14 @@
 import type { NextPage } from "next";
 import Layout from "../../components/layout";
+import Button from "../../components/button";
 //NextJs Dynamic Routing
-// http://localhost:3000/items/id
+// http://localhost:3000/item/id
 
 const ItemDetail: NextPage = () => {
 	return (
 		<>
 			<Layout canGoBack>
-				<div className="px-4 py-10">
+				<div className="px-4  py-4">
 					<div className="mb-8">
 						<div className="h-96 bg-slate-200" />
 						<div className="flex cursor-pointer py-4 border-t border-b items-center space-x-3">
@@ -24,9 +25,8 @@ const ItemDetail: NextPage = () => {
 							<span className="text-3xl block mt-3 text-gray-900">$140</span>
 							<p className=" my-6 text-gray-700">test</p>
 							<div className="flex items-center justify-between space-x-2">
-								<button className="flex-1 bg-orange-500 text-white py-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 font-medium hover:bg-orange-600 focus:ring-orange-500 ">
-									Talk to seller
-								</button>
+								<Button large text="Talk to seller" />
+
 								<button className="p-4 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500">
 									<svg
 										className="h-7 w-7 "
@@ -49,7 +49,7 @@ const ItemDetail: NextPage = () => {
 					<div>
 						<h2 className="text-2xl font-bold text-gray-900">Similar items</h2>
 						<div className=" mt-6 grid grid-cols-2 gap-6">
-							{[1, 2, 3, 4, 5, 6].map((_, i) => (
+							{[1, 2, 3, 4, 5, 6].map((i) => (
 								<div key={i}>
 									<div className="h-56 w-full mb-4 bg-slate-300" />
 									<h3 className="text-gray-600 -mb-1"> ipad</h3>
