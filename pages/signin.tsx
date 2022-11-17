@@ -1,9 +1,10 @@
 import type { NextPage } from "next";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import useMutation from "../libs/client/useMutation";
 import Input from "../components/input";
 import Button from "../components/button";
-import { cls } from "../libs/utils";
+import { cls } from "../libs/client/utils";
 
 interface SigninForm {
 	email?: string;
@@ -11,23 +12,26 @@ interface SigninForm {
 }
 
 const Signin: NextPage = () => {
-	const [method, setMethod] = useState("");
+	const [method, setMethod] = useState<"email" | "phonenumber">("email");
+	// const [submit, setSubmit] = useState(false);
+	const [signin, { loading, data, error }] = useMutation("/api/users/signin");
 	const { register, handleSubmit, reset } = useForm<SigninForm>();
 
 	const onEmailClick = () => {
 		reset();
 		setMethod("email");
-		console.log("onEmailClick");
+		// console.log("onEmailClick");
 	};
 
 	const onPhoneClick = () => {
 		reset();
 		setMethod("phonenumber");
-		console.log("onPhoneClick");
+		// console.log("onPhoneClick");
 	};
 
-	const onValid = (data: SigninForm) => {
-		console.log(data);
+	const onValid = (validForm: SigninForm) => {
+		if (loading) return;
+		signin(validForm);
 	};
 
 	return (
@@ -37,7 +41,7 @@ const Signin: NextPage = () => {
 				<div className="mt-14">
 					<div className="flex flex-col items-center">
 						<h5 className="text-sm text-gray-500 font-medium">Enter using:</h5>
-						<div className="grid  border-b  w-full mt-8 grid-cols-2 ">
+						<div className="grid border-b  w-full mt-8 grid-cols-2 ">
 							<button
 								className={cls(
 									"pb-4 font-medium text-sm border-b-2",
@@ -84,9 +88,11 @@ const Signin: NextPage = () => {
 								register={register("phonenumber")}
 							/>
 						) : null}
-						{method === "email" ? <Button text={"Get login link"} /> : null}
+						{method === "email" ? (
+							<Button text={loading ? "Loading" : "Get login link"} />
+						) : null}
 						{method === "phonenumber" ? (
-							<Button text={"Get one-time password"} />
+							<Button text={loading ? "Loading" : "Get one-time password"} />
 						) : null}
 					</form>
 					<div className="mt-8">
