@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
-import Layout from "../../components/layout";
-import Button from "../../components/button";
+import Layout from "@components/layout";
+import Button from "@components/button";
 //NextJs Dynamic Routing
 // http://localhost:3000/item/id
 

@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
-import Layout from "../../components/layout";
-import Button from "../../components/button";
-import Input from "../../components/input";
-import TextArea from "../../components/textarea";
+import Layout from "@components/layout";
+import Button from "@components/button";
+import Input from "@components/input";
+import TextArea from "@components/textarea";
 
 const CreateLiveStream: NextPage = () => {
 	return (

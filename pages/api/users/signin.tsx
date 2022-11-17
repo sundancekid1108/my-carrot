@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import fnHandler from "../../../libs/server/fnHandler";
+import fnHandler from "@libs/server/fnHandler";
 import { PrismaClient } from "@prisma/client";
 
 const client = new PrismaClient();
