@@ -1,18 +1,33 @@
 import type { NextPage } from "next";
+import { useForm } from "react-hook-form";
 import { useState } from "react";
 import Input from "../components/input";
 import Button from "../components/button";
 import { cls } from "../libs/utils";
 
+interface SigninForm {
+	email?: string;
+	phonenumber?: string;
+}
+
 const Signin: NextPage = () => {
 	const [method, setMethod] = useState("");
+	const { register, handleSubmit, reset } = useForm<SigninForm>();
+
 	const onEmailClick = () => {
+		reset();
 		setMethod("email");
 		console.log("onEmailClick");
 	};
+
 	const onPhoneClick = () => {
+		reset();
 		setMethod("phonenumber");
 		console.log("onPhoneClick");
+	};
+
+	const onValid = (data: SigninForm) => {
+		console.log(data);
 	};
 
 	return (
@@ -36,7 +51,7 @@ const Signin: NextPage = () => {
 							<button
 								className={cls(
 									"pb-4 font-medium text-sm border-b-2",
-									method === "phone"
+									method === "phonenumber"
 										? " border-orange-500 text-orange-400"
 										: "border-transparent hover:text-gray-400 text-gray-500"
 								)}
@@ -45,9 +60,19 @@ const Signin: NextPage = () => {
 							</button>
 						</div>
 					</div>
-					<form className="flex flex-col mt-8 space-y-4">
+					<form
+						className="flex flex-col mt-8 space-y-4"
+						onSubmit={handleSubmit(onValid)}>
 						{method === "email" ? (
-							<Input name="email" label="Email address" type="email" required />
+							<Input
+								name="email"
+								label="Email address"
+								type="email"
+								required
+								register={register("email", {
+									required: true,
+								})}
+							/>
 						) : null}
 						{method === "phonenumber" ? (
 							<Input
@@ -56,6 +81,7 @@ const Signin: NextPage = () => {
 								type="text"
 								kind="phonenumber"
 								required
+								register={register("phonenumber")}
 							/>
 						) : null}
 						{method === "email" ? <Button text={"Get login link"} /> : null}

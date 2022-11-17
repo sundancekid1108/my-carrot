@@ -26,7 +26,7 @@ const EditProfile: NextPage = () => {
 					<Input
 						required
 						label="Phone number"
-						name="phone"
+						name="phonenumber"
 						type="number"
 						kind="phonenumber"
 					/>
