@@ -23,10 +23,10 @@ const Signin: NextPage = () => {
 		// console.log("onEmailClick");
 	};
 
-	const onPhoneClick = () => {
+	const onPhoneNumberClick = () => {
 		reset();
 		setMethod("phonenumber");
-		// console.log("onPhoneClick");
+		// console.log("onPhoneNumberClick");
 	};
 
 	const onValid = (validForm: SigninForm) => {
@@ -59,8 +59,8 @@ const Signin: NextPage = () => {
 										? " border-orange-500 text-orange-400"
 										: "border-transparent hover:text-gray-400 text-gray-500"
 								)}
-								onClick={onPhoneClick}>
-								Phone
+								onClick={onPhoneNumberClick}>
+								Phone Number
 							</button>
 						</div>
 					</div>
