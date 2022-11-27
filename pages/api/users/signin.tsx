@@ -14,10 +14,6 @@ async function handler(
 	res: NextApiResponse<ResponseType>
 ) {
 	const { phonenumber, email } = req.body;
-
-	console.log(typeof phonenumber);
-	console.log(typeof email);
-
 	const user = phonenumber ? { phonenumber } : email ? { email } : null;
 
 	// console.log("user", user);
@@ -45,13 +41,20 @@ async function handler(
 	});
 
 	if (phonenumber) {
-		const token_message = await twilioClient.messages.create({
-			// messagingServiceSid: process.env.TWILIO_MSID,
-			from: test_from_number,
-			to: test_to_number,
-			body: ` Access Token  : ${payload}.`,
-		});
-		console.log("token_message", token_message);
+		//phonenumber로 Token 전송
+		// const token_message = await twilioClient.messages.create({
+		// 	// messagingServiceSid: process.env.TWILIO_MSID,
+		// 	from: test_from_number,
+		// 	to: test_to_number,
+		// 	body: ` Access Token  : ${payload}.`,
+		// });
+		// console.log("token_message", token_message);
+		console.log("phonenumber", phonenumber);
+		console.log("token_phonenumber");
+	} else if (email) {
+		// Email로 Token 전송
+		console.log("email", email);
+		console.log("token_email");
 	}
 
 	return res.status(200).json({ isSuccess: true });
