@@ -17,7 +17,7 @@ interface TokenForm {
 }
 
 interface MutationResult {
-	ok: boolean;
+	isSuccess: boolean;
 }
 
 const Signin: NextPage = () => {
