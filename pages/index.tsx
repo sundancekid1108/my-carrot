@@ -3,11 +3,18 @@ import Link from "next/link";
 import Layout from "@components/layout";
 import FloatingButton from "@components/floatingbutton";
 import Item from "@components/item";
+import useUserInfo from "@libs/client/useUserInfo";
+import Head from "next/head";
 
 const Home: NextPage = () => {
+	const user = useUserInfo();
+	console.log("currentuser", user);
 	return (
 		<>
-			<Layout tabBarOn title="My Carrot">
+			<Layout tabBarOn title="홈">
+				<Head>
+					<title>Home</title>
+				</Head>
 				<div className="flex flex-col space-y-5 divide-y">
 					{[1, 1, 1, 1, 1].map((_, i) => (
 						<Item

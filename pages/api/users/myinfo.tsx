@@ -11,12 +11,12 @@ async function handler(
 	res: NextApiResponse<ResponseType>
 ) {
 	console.log(req.session.user);
-	const myProfile = await client.user.findUnique({
+	const profile = await client.user.findUnique({
 		where: { id: req.session.user?.id },
 	});
 	return res.json({
 		isSuccess: true,
-		myProfile,
+		profile,
 	});
 }
 
