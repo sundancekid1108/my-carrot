@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import fnHandler, { ResponseType } from "@libs/server/fnHandler";
+import withHandler, { ResponseType } from "@libs/server/handler";
 import { PrismaClient } from "@prisma/client";
 import twilio from "twilio";
 
@@ -50,11 +50,11 @@ async function handler(
 		// });
 		// console.log("token_message", token_message);
 		console.log("phonenumber", phonenumber);
-		console.log("token_phonenumber");
+		console.log("token", token);
 	} else if (email) {
 		// Email로 Token 전송
 		console.log("email", email);
-		console.log("token_email");
+		console.log("token", token);
 	}
 
 	return res.status(200).json({ isSuccess: true });
@@ -62,4 +62,4 @@ async function handler(
 	// console.log("newUser", newUser);
 }
 
-export default fnHandler("POST", handler);
+export default withHandler("POST", handler);

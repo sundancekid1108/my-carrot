@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import useMutation from "@libs/client/useMutation";
 import Input from "@components/input";
 import Button from "@components/button";
@@ -56,12 +57,22 @@ const Signin: NextPage = () => {
 		authToken(validForm);
 	};
 
+	const router = useRouter();
+	useEffect(() => {
+		console.log("tokenData", tokenData);
+		if (tokenData?.isSuccess) {
+			router.push("/");
+		}
+	}, [tokenData, router]);
+
+	console.log("data", data);
+
 	return (
 		<>
 			<div className="mt-14 px-6">
 				<h3 className="text-3xl font-bold text-center">당근마트</h3>
 				<div className="mt-14">
-					{data?.ok ? (
+					{data?.isSuccess ? (
 						<>
 							<form
 								onSubmit={tokenHandleSubmit(onTokenValid)}
