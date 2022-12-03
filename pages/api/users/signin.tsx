@@ -62,4 +62,4 @@ async function handler(
 	// console.log("newUser", newUser);
 }
 
-export default withHandler("POST", handler);
+export default withHandler({ method: "POST", handler, isPrivate: false });
