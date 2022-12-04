@@ -4,12 +4,12 @@ import Button from "@components/button";
 import Input from "@components/input";
 import Layout from "@components/layout";
 import TextArea from "@components/textarea";
-//http://localhost:3000/item/uploaditem
+//http://localhost:3000/products/uploadproduct
 
-const UploadItem: NextPage = () => {
+const UploadProduct: NextPage = () => {
 	return (
 		<>
-			<Layout canGoBack title="Upload Item">
+			<Layout canGoBack title="Upload Product">
 				<form className="p-4 space-y-4">
 					<div>
 						<label className="w-full cursor-pointer text-gray-600 hover:border-orange-500 hover:text-orange-500 flex items-center justify-center border-2 border-dashed border-gray-300 h-48 rounded-md">
@@ -30,14 +30,7 @@ const UploadItem: NextPage = () => {
 						</label>
 					</div>
 					<Input required label="Name" name="name" type="text" />
-					<Input
-						required
-						label="Price"
-						placeholder="0.00"
-						name="price"
-						type="text"
-						kind="price"
-					/>
+					<Input required label="Price" name="price" type="text" kind="price" />
 					<TextArea name="description" label="Description" />
 					<Button text="Upload item" />
 				</form>
@@ -46,4 +39,4 @@ const UploadItem: NextPage = () => {
 	);
 };
 
-export default UploadItem;
+export default UploadProduct;

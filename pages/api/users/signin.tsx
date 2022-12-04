@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import withHandler, { ResponseType } from "@libs/server/handler";
+import client from "@libs/server/client";
 import { PrismaClient } from "@prisma/client";
 import twilio from "twilio";
 
-const client = new PrismaClient();
 const twilioClient = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 
 const test_from_number = process.env.TWILIO_DEV_SENDING_PHONENUMBER;

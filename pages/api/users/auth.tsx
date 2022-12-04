@@ -2,9 +2,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { withIronSessionApiRoute } from "iron-session/next";
 import withHandler, { ResponseType } from "@libs/server/handler";
 import { withApiSession } from "@libs/server/session";
-import { PrismaClient } from "@prisma/client";
+import client from "@libs/server/client";
 
-const client = new PrismaClient();
 
 async function handler(
 	req: NextApiRequest,

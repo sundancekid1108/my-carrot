@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import Layout from "@components/layout";
 import FloatingButton from "@components/floatingbutton";
-import Item from "@components/item";
+import Item from "@components/product";
 import useUserInfo from "@libs/client/useUserInfo";
 import Head from "next/head";
 
@@ -26,7 +26,7 @@ const Home: NextPage = () => {
 							hearts={1}
 						/>
 					))}
-					<FloatingButton href="/item/uploaditem">
+					<FloatingButton href="/products/uploadproduct">
 						<svg
 							className="h-6 w-6"
 							xmlns="http://www.w3.org/2000/svg"
