@@ -1,18 +1,18 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import useSWR from "swr";
+
+//data fetch하는 hook(데이터가 변경되면 자동으로 데이터를 변경)
 
 export default function useUser() {
-	const [userInfo, setUserInfo] = useState();
+	const { data, error } = useSWR("/api/users/myinfo");
+	// console.log("useUser data", data);
 	const router = useRouter();
 	useEffect(() => {
-		fetch("/api/users/myinfo")
-			.then((response) => response.json())
-			.then((data) => {
-				if (!data.isSuccess) {
-					return router.replace("/signin");
-				}
-				setUserInfo(data.profile);
-			});
-	}, [router]);
-	return userInfo;
+		if (data && !data.isSuccess) {
+			router.replace("/signin");
+		}
+	}, [data, router]);
+	return { user: data?.profile, isLoading: !data && !error };
 }
+

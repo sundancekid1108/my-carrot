@@ -42,3 +42,4 @@ export default function withHandler({
 		}
 	};
 }
+// NextJS는 withHandler가 Return하는것을 실행
