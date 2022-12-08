@@ -38,6 +38,6 @@ model Product {
   userId      Int
   image       String
   name        String
-  price       Int
+  price       String
   description String   @db.MediumText
 }

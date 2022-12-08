@@ -13,7 +13,7 @@ const Home: NextPage = () => {
 		<>
 			<Layout tabBarOn title="홈">
 				<Head>
-					<title>Home</title>
+					<title>홈</title>
 				</Head>
 				<div className="flex flex-col space-y-5 divide-y">
 					{[1, 1, 1, 1, 1].map((_, i) => (
