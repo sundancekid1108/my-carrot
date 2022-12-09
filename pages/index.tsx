@@ -5,9 +5,18 @@ import FloatingButton from "@components/floatingbutton";
 import Item from "@components/product";
 import useUserInfo from "@libs/client/useUserInfo";
 import Head from "next/head";
+import useSWR from "swr";
+import { Product } from "@prisma/client";
+
+interface ProductsResponse {
+	isSuccess: boolean;
+	products: Product[];
+}
 
 const Home: NextPage = () => {
 	const user = useUserInfo();
+	const { data } = useSWR<ProductsResponse>("/api/products");
+	console.log("productsData", data);
 	console.log("currentuser", user);
 	return (
 		<>
@@ -16,12 +25,12 @@ const Home: NextPage = () => {
 					<title>홈</title>
 				</Head>
 				<div className="flex flex-col space-y-5 divide-y">
-					{[1, 1, 1, 1, 1].map((_, i) => (
+					{data?.products?.map((product) => (
 						<Item
-							id={i}
-							key={i}
-							title="아이템"
-							price={99}
+							id={product.id}
+							key={product.id}
+							title={product.name}
+							price={product.price}
 							comments={1}
 							hearts={1}
 						/>

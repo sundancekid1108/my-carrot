@@ -5,15 +5,16 @@ export interface ResponseType {
 	[key: string]: any;
 }
 
+type method = "GET" | "POST" | "DELETE";
 interface ConfigType {
-	method: "GET" | "POST" | "DELETE";
+	methods: method[];
 	handler: (req: NextApiRequest, res: NextApiResponse) => void;
 	isPrivate?: boolean;
 }
 
 //GET, POST, DELETE만 실행
 export default function withHandler({
-	method,
+	methods,
 	isPrivate = true,
 	handler,
 }: ConfigType) {
@@ -24,7 +25,7 @@ export default function withHandler({
 		// console.log("handler req", req.method);
 		// console.log(method);
 
-		if (req.method !== method) {
+		if (req.method && !methods.includes(req.method as any)) {
 			return res.status(405).end();
 		}
 
@@ -43,3 +44,5 @@ export default function withHandler({
 	};
 }
 // NextJS는 withHandler가 Return하는것을 실행
+
+//as any => 형변환
