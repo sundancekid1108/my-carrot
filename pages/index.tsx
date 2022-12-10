@@ -16,7 +16,7 @@ interface ProductsResponse {
 const Home: NextPage = () => {
 	const user = useUserInfo();
 	const { data } = useSWR<ProductsResponse>("/api/products");
-	console.log("productsData", data);
+	console.log("productsDataList", data);
 	console.log("currentuser", user);
 	return (
 		<>

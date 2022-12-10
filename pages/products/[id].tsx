@@ -1,10 +1,20 @@
 import type { NextPage } from "next";
 import Layout from "@components/layout";
 import Button from "@components/button";
+import { useRouter } from "next/router";
+import useSWR from "swr";
+import Link from "next/link";
 //NextJs Dynamic Routing
 // http://localhost:3000/products/id
 
 const ItemDetail: NextPage = () => {
+    const router = useRouter();
+	const { data, error } = useSWR(
+		router.query.id ? `/api/products/${router.query.id}` : null
+	);
+	// console.log("data", data)
+
+
 	return (
 		<>
 			<Layout canGoBack>
@@ -14,16 +24,21 @@ const ItemDetail: NextPage = () => {
 						<div className="flex cursor-pointer py-4 border-t border-b items-center space-x-3">
 							<div />
 							<div>
-								<p className="text-sm font-medium text-gray-700">양원철</p>
-								<p className="text-xs font-medium text-gray-500">
-									View profile &rarr;
+								<p className="text-sm font-medium text-gray-700">
+									{data?.productInfo?.user?.name}
 								</p>
+								<Link href={`/users/profiles/${data?.productInfo?.user?.id}`}>
+									<div className="text-xs font-medium text-gray-500">
+										View profile &rarr;
+									</div>
+								</Link>
+
 							</div>
 						</div>
 						<div className="mt-5">
-							<h1 className="text-3xl font-bold text-gray-900">아이폰</h1>
-							<span className="text-3xl block mt-3 text-gray-900">$140</span>
-							<p className=" my-6 text-gray-700">test</p>
+							<h1 className="text-3xl font-bold text-gray-900">{data?.productInfo?.name}</h1>
+							<span className="text-3xl block mt-3 text-gray-900">{data?.productInfo?.price}</span>
+							<p className=" my-6 text-gray-700">{data?.productInfo?.description}</p>
 							<div className="flex items-center justify-between space-x-2">
 								<Button large text="Talk to seller" />
 
