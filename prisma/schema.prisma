@@ -41,7 +41,7 @@ model Product {
   name        String
   price       String
   description String     @db.MediumText
-  Favorite    Favorite[]
+  favorite    Favorite[]
 }
 
 model Favorite {

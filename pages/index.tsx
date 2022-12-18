@@ -8,9 +8,16 @@ import Head from "next/head";
 import useSWR from "swr";
 import { Product } from "@prisma/client";
 
+
+interface ProductWithCount extends Product {
+	_count: {
+		favorite: number;
+	};
+}
+
 interface ProductsResponse {
 	isSuccess: boolean;
-	products: Product[];
+	products: ProductWithCount[];
 }
 
 const Home: NextPage = () => {
@@ -31,7 +38,7 @@ const Home: NextPage = () => {
 							key={product.id}
 							title={product.name}
 							price={product.price}
-							hearts={1}
+							hearts={product._count.favorite}
 						/>
 					))}
 					<FloatingButton href="/products/uploadproduct">
