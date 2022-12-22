@@ -18,8 +18,6 @@ export default function useMutation<T = any>(
 		error: undefined,
 	});
 
-	console.log("state", state);
-
 	function mutation(data: any) {
 		setState((prev) => ({ ...prev, loading: true }));
 
@@ -39,6 +37,6 @@ export default function useMutation<T = any>(
 			);
 	}
 
-	console.log(mutation);
+	// console.log(mutation);
 	return [mutation, { ...state }];
 }
