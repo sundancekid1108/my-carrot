@@ -19,6 +19,7 @@ interface CreatePostResponse {
 	post: Post;
 }
 
+
 const CreatePost: NextPage = () => {
 	const router = useRouter();
 	const { register, handleSubmit } = useForm<CreatePostForm>();
