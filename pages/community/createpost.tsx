@@ -7,7 +7,7 @@ import useMutation from "@libs/client/useMutation";
 import { useEffect } from "react";
 import { Post } from "@prisma/client";
 import { useRouter } from "next/router";
-
+import useCoords from "@libs/client/useCoords";
 //http://localhost:3000/community/createpost
 
 interface CreatePostForm {
@@ -19,9 +19,9 @@ interface CreatePostResponse {
 	post: Post;
 }
 
-
 const CreatePost: NextPage = () => {
 	const router = useRouter();
+	const { latitude, longitude } = useCoords();
 	const { register, handleSubmit } = useForm<CreatePostForm>();
 	const [post, { loading, data }] =
 		useMutation<CreatePostResponse>("/api/posts");
@@ -37,6 +37,9 @@ const CreatePost: NextPage = () => {
 			router.push(`/community/${data.post.id}`);
 		}
 	}, [data, router]);
+
+	console.log("latitude, longitude", latitude, longitude);
+	console.log(typeof latitude);
 
 	return (
 		<>
