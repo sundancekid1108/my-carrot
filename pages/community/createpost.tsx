@@ -30,16 +30,10 @@ const CreatePost: NextPage = () => {
 		console.log("onValid data", data);
 
 		if (loading) return;
-		post(data);
+		post({ ...data, latitude, longitude });
 	};
-	useEffect(() => {
-		if (data && data.isSuccess) {
-			router.push(`/community/${data.post.id}`);
-		}
-	}, [data, router]);
-
-	console.log("latitude, longitude", latitude, longitude);
-	console.log(typeof latitude);
+	<p>리뷰자리</p>;
+	useEffect(() => {}, [data, router]);
 
 	return (
 		<>
