@@ -2,12 +2,11 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import Layout from "@components/layout";
 import FloatingButton from "@components/floatingbutton";
-import Item from "@components/product";
+import Item from "@components/item";
 import useUserInfo from "@libs/client/useUserInfo";
 import Head from "next/head";
 import useSWR from "swr";
 import { Product } from "@prisma/client";
-
 
 interface ProductWithCount extends Product {
 	_count: {

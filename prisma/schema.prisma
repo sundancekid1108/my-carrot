@@ -9,19 +9,24 @@ datasource db {
 }
 
 model User {
-  id          Int         @id @default(autoincrement())
-  email       String?     @unique
-  name        String
-  avatar      String?
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  phonenumber String?     @unique
-  tokens      Token[]
-  product     Product[]
-  favorite    Favorite[]
-  posts       Post[]
-  answers     Answer[]
-  wonderings  Wondering[]
+  id              Int         @id @default(autoincrement())
+  email           String?     @unique
+  name            String
+  avatar          String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  phonenumber     String?     @unique
+  tokens          Token[]
+  product         Product[]
+  favorite        Favorite[]
+  posts           Post[]
+  answers         Answer[]
+  wonderings      Wondering[]
+  sale            Sale[]
+  purchase        Purchase[]
+  record          Record[]
+  writtenReviews  Review[]    @relation(name: "writtenReviews")
+  receivedReviews Review[]    @relation(name: "receivedReviews")
 }
 
 model Token {
@@ -46,6 +51,9 @@ model Product {
   price       String
   description String     @db.MediumText
   favorite    Favorite[]
+  Sale        Sale[]
+  Purchase    Purchase[]
+  Record      Record[]
 
   @@index([userId])
 }
@@ -105,5 +113,65 @@ model Wondering {
   @@index([postId])
 }
 
-// yarn prisma format
-// yarn prisma db push
+model Review {
+  id               Int      @id @default(autoincrement())
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  review           String   @db.MediumText
+  score            Int      @default(1)
+  createdByUser    User     @relation(name: "writtenReviews", fields: [createdByUserId], references: [id], onDelete: Cascade)
+  createdByUserId  Int
+  createdForUser   User     @relation(name: "receivedReviews", fields: [createdForUserId], references: [id], onDelete: Cascade)
+  createdForUserId Int
+
+  @@index([createdByUserId])
+  @@index([createdForUserId])
+}
+
+model Sale {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([productId])
+}
+
+model Purchase {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([productId])
+}
+
+model Record {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId Int
+  createdAt DateTime @default(now())
+  kind      String
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([productId])
+}
+
+enum Kind {
+  Purchase
+  Sale
+  Favorite
+}
+
+// yarn prisma format && yarn prisma db push

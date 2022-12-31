@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import withHandler, { ResponseType } from "@libs/server/handler";
 import client from "@libs/server/client";
 import { withApiSession } from "@libs/server/session";
-import product from "@components/product";
+import product from "@components/item";
 
 async function handler(
 	req: NextApiRequest,

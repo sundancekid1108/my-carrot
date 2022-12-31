@@ -8,7 +8,7 @@ import useSWR, { useSWRConfig } from "swr";
 import Link from "next/link";
 import { Product, User } from "@prisma/client";
 import useMutation from "@libs/client/useMutation";
-import useUser from "@libs/client/useUserInfo";
+import useUserInfo from "@libs/client/useUserInfo";
 import { cls } from "@libs/client/utils";
 //NextJs Dynamic Routing
 // http://localhost:3000/products/id
@@ -25,7 +25,7 @@ interface ItemDetailResponse {
 }
 
 const ItemDetail: NextPage = () => {
-	const { user, isLoading } = useUser();
+	const { user, isLoading } = useUserInfo();
 	const { mutate } = useSWRConfig();
 	const router = useRouter();
 	const { data, mutate: boundMutate } = useSWR<ItemDetailResponse>(
