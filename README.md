@@ -10,6 +10,5 @@ npm run dev
 yarn dev
 ```
 
-[myinfo.ts](pages%2Fapi%2Fusers%2Fmyinfo.ts)
 
 ##내 프로젝트 

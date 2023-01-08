@@ -2,12 +2,70 @@ import type { NextPage } from "next";
 import Layout from "@components/layout";
 import Input from "@components/input";
 import Button from "@components/button";
+import useUserInfo from "@libs/client/useUserInfo";
+import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+import useMutation from "@libs/client/useMutation";
+
+interface EditProfileForm {
+	email?: string;
+	name?: string;
+	phonenumber?: string;
+	formErrors?: string;
+}
+
+interface EditProfileResponse {
+	isSuccess: boolean;
+	error?: string;
+}
 
 const EditProfile: NextPage = () => {
+	const { user } = useUserInfo();
+	console.log("userinfo", user);
+	const {
+		register,
+		setValue,
+		handleSubmit,
+		setError,
+		formState: { errors },
+	} = useForm<EditProfileForm>();
+
+	const [editProfile, { data, loading }] =
+		useMutation<EditProfileResponse>(`/api/users/me`);
+
+	const onValid = ({ email, name, phonenumber }: EditProfileForm) => {
+		if (loading) return;
+
+		if (email === "" && phonenumber === "" && name === "") {
+			return setError("formErrors", {
+				message: "Email OR Phone number are required. You need to choose one.",
+			});
+		}
+		editProfile({
+			email,
+			phonenumber,
+			name,
+		});
+
+		console.log("onValid", email, phonenumber);
+	};
+
+	useEffect(() => {
+		if (user?.email) setValue("email", user.email);
+		if (user?.phonenumber) setValue("phonenumber", user.phonenumber);
+		if (user?.name) setValue("name", user.name);
+	}, [user, setValue]);
+
+	useEffect(() => {
+		if (data && !data.isSuccess && data.error) {
+			setError("formErrors", { message: data.error });
+		}
+	}, [data, setError]);
+
 	return (
 		<>
 			<Layout canGoBack title="Edit Profile">
-				<form className="py-10 px-5 space-y-4">
+				<form onSubmit={handleSubmit(onValid)} className="py-10 px-5 space-y-4">
 					<div className="flex items-center space-x-3">
 						<div className="w-14 h-14 rounded-full bg-slate-500" />
 						<label
@@ -22,15 +80,35 @@ const EditProfile: NextPage = () => {
 							/>
 						</label>
 					</div>
-					<Input required label="Email address" name="email" type="email" />
 					<Input
-						required
+						register={register("name")}
+						required={false}
+						label="Name"
+						name="name"
+						type="text"
+					/>
+
+					<Input
+						register={register("email")}
+						required={false}
+						label="Email address"
+						name="email"
+						type="email"
+					/>
+					<Input
+						register={register("phonenumber")}
+						required={false}
 						label="Phone number"
 						name="phonenumber"
-						type="number"
+						type="string"
 						kind="phonenumber"
 					/>
-					<Button text="Update profile" />
+					{errors.formErrors ? (
+						<span className="my-2 text-red-500 font-medium text-center block">
+							{errors.formErrors.message}
+						</span>
+					) : null}
+					<Button text={loading ? "Loading..." : "Update profile"} />
 				</form>
 			</Layout>
 		</>
