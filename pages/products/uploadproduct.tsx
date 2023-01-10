@@ -76,7 +76,6 @@ const UploadProduct: NextPage = () => {
 						label="Price"
 						name="price"
 						type="text"
-						kind="price"
 					/>
 					<TextArea
 						register={register("description", { required: true })}
