@@ -2,8 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const NotFound = () => {
-	return <div>NotFound</div>;
+const Profile = () => {
+	return <div>Profile</div>;
 };
 
-export default NotFound;
+export default Profile;

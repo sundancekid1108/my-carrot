@@ -1,8 +1,7 @@
 import React from "react";
-import ItemList from "../item/itemlist";
-import CommunityList from "../community/communitylist";
-import Footer from "../../components/layouts/footer/footer";
-import Header from "../../components/layouts/header/header";
+import ItemList from "../item";
+import CommunityList from "../community";
+import Layout from "../../components/layout";
 
 const ChatList = () => {
 	return (

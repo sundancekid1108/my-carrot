@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../../components/layouts/header/header";
+import Layout from "../../components/layout";
 import { useState } from "react";
 
 const ItemDetail = () => {

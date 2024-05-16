@@ -1,24 +1,28 @@
 import React from "react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const getTitle = (...str) => {
 	console.log("str1", str);
-	str.join("");
+	const result = str.join("");
 	console.log("str2", str);
-	return str;
+	return result;
 };
 
-const Header = ({ title, canGoBack, hasTabBar, children }) => {
+const Layout = ({ title, canGoBack, hasTabBar, children }) => {
 	const navigate = useNavigate();
+	const location = useLocation();
+
 	const onClick = () => {
 		navigate(-1);
 		console.log("back");
 	};
+
+	console.log("children", children);
+	console.log(location);
 	return (
 		<div>
-			<div
-				className="bg-white w-full h-12 max-w-xl justify-center text-lg px-10 font-medium  fixed text-gray-800 border-b top-0  flex items-center">
+			<div className="bg-white w-full h-12 max-w-xl justify-center text-lg px-10 font-medium  fixed text-gray-800 border-b top-0  flex items-center">
 				{canGoBack ? (
 					<button onClick={onClick}>
 						<svg
@@ -36,15 +40,22 @@ const Header = ({ title, canGoBack, hasTabBar, children }) => {
 					</button>
 				) : null}
 				{title ? (
-					<span className={getTitle(canGoBack ? "mx-auto" : "", "")}>{title}</span>
+					<span className={getTitle(canGoBack ? "mx-auto" : "", "")}>
+						{title}
+					</span>
 				) : null}
 			</div>
-
+			{children}
 			{hasTabBar ? (
-				<nav
-					className="bg-white max-w-xl text-gray-700 border-t fixed bottom-0 w-full px-10 pb-5 pt-3 flex justify-between text-xs">
+				<nav className="bg-white max-w-xl text-gray-700 border-t fixed bottom-0 w-full px-10 pb-5 pt-3 flex justify-between text-xs">
 					<Link to="/">
-						<a className="flex flex-col items-center space-y-2">
+						<a
+							className={getTitle(
+								"flex flex-col items-center space-y-2 ",
+								location.pathname === "/"
+									? "flex flex-col items-center space-y-2 text-orange-500"
+									: "flex flex-col items-center space-y-2 hover:text-gray-500 transition-colors"
+							)}>
 							<svg
 								className="w-6 h-6"
 								fill="none"
@@ -61,7 +72,13 @@ const Header = ({ title, canGoBack, hasTabBar, children }) => {
 						</a>
 					</Link>
 					<Link to="/community">
-						<a className="flex flex-col items-center space-y-2">
+						<a
+							className={getTitle(
+								"flex flex-col items-center space-y-2 ",
+								location.pathname === "/community"
+									? "flex flex-col items-center space-y-2 text-orange-500"
+									: "flex flex-col items-center space-y-2 hover:text-gray-500 transition-colors"
+							)}>
 							<svg
 								className="w-6 h-6"
 								fill="none"
@@ -78,28 +95,39 @@ const Header = ({ title, canGoBack, hasTabBar, children }) => {
 						</a>
 					</Link>
 
-					<Link to="/community">
-						<a className="flex flex-col items-center space-y-2">
+					<Link to="/nearby">
+						<a
+							className={getTitle(
+								"flex flex-col items-center space-y-2 ",
+								location.pathname === "/nearby"
+									? "flex flex-col items-center space-y-2 text-orange-500"
+									: "flex flex-col items-center space-y-2 hover:text-gray-500 transition-colors"
+							)}>
 							<svg
 								className="w-6 h-6"
-								// fill="none"
+								fill="none"
 								stroke="currentColor"
 								viewBox="0 0 24 24"
 								xmlns="http://www.w3.org/2000/svg">
 								<path
+									d="M5.36328 12.0523C4.01081 11.5711 3.33457 11.3304 3.13309 10.9655C2.95849 10.6492 2.95032 10.2673 3.11124 9.94388C3.29694 9.57063 3.96228 9.30132 5.29295 8.76272L17.8356 3.68594C19.1461 3.15547 19.8014 2.89024 20.2154 3.02623C20.5747 3.14427 20.8565 3.42608 20.9746 3.7854C21.1106 4.19937 20.8453 4.85465 20.3149 6.16521L15.2381 18.7078C14.6995 20.0385 14.4302 20.7039 14.0569 20.8896C13.7335 21.0505 13.3516 21.0423 13.0353 20.8677C12.6704 20.6662 12.4297 19.99 11.9485 18.6375L10.4751 14.4967C10.3815 14.2336 10.3347 14.102 10.2582 13.9922C10.1905 13.8948 10.106 13.8103 10.0086 13.7426C9.89876 13.6661 9.76719 13.6193 9.50407 13.5257L5.36328 12.0523Z"
 									strokeLinecap="round"
 									strokeLinejoin="round"
-									strokeWidth="0"
-									d="M13,11.8999819 L13,19 L11,19 L11,11.8999819 C8.71775968,11.4367116 7,9.41895791 7,7 C7,4.23857625 9.23857625,2 12,2 C14.7614237,2 17,4.23857625 17,7 C17,9.41895791 15.2822403,11.4367116 13,11.8999819 Z M9,14.1573001 L9,16.1843625 C6.0671837,16.5504753 4,17.3867347 4,18 C4,18.8069531 7.5791408,20 12,20 C16.4208592,20 20,18.8069531 20,18 C20,17.3867347 17.9328163,16.5504753 15,16.1843625 L15,14.1573001 C19.0558765,14.601713 22,15.967812 22,18 C22,20.5067554 17.5202663,22 12,22 C6.4797337,22 2,20.5067554 2,18 C2,15.967812 4.94412354,14.601713 9,14.1573001 Z M12,10 C13.6568542,10 15,8.65685425 15,7 C15,5.34314575 13.6568542,4 12,4 C10.3431458,4 9,5.34314575 9,7 C9,8.65685425 10.3431458,10 12,10 Z"
+									strokeWidth="2"
 								/>
 							</svg>
-
 							<span>내근처</span>
 						</a>
 					</Link>
 
 					<Link to="/chat">
-						<a className="flex flex-col items-center space-y-2">
+						<a
+							className={getTitle(
+								"flex flex-col items-center space-y-2 ",
+								location.pathname === "/chat"
+									? "flex flex-col items-center space-y-2 text-orange-500"
+									: "flex flex-col items-center space-y-2 hover:text-gray-500 transition-colors"
+							)}>
 							<svg
 								className="w-6 h-6"
 								fill="none"
@@ -117,7 +145,13 @@ const Header = ({ title, canGoBack, hasTabBar, children }) => {
 					</Link>
 
 					<Link to="/profile">
-						<a className="flex flex-col items-center space-y-2">
+						<a
+							className={getTitle(
+								"flex flex-col items-center space-y-2 ",
+								location.pathname === "/profile"
+									? "flex flex-col items-center space-y-2 text-orange-500"
+									: "flex flex-col items-center space-y-2 hover:text-gray-500 transition-colors"
+							)}>
 							<svg
 								className="w-6 h-6"
 								fill="none"
@@ -139,4 +173,4 @@ const Header = ({ title, canGoBack, hasTabBar, children }) => {
 	);
 };
 
-export default Header;
+export default Layout;

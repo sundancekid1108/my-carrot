@@ -3,9 +3,9 @@ import { useState } from "react";
 
 const getTitle = (...str) => {
 	console.log("str1", str);
-	str.join("");
+	const result = str.join("");
 	console.log("str2", str);
-	return str;
+	return result;
 };
 
 const Signin = () => {
