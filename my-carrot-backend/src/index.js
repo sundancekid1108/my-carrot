@@ -10,12 +10,23 @@ import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import multer from 'multer';
+import DatabaseConnect from './database/databaseconfig.js'
+import router from './routes/route.js'
+
 
 dotenv.config();
 
+
 const PORT = process.env.PORT || 3001;
 const HOST = process.env.HOST || "0.0.0.0";
+
 const app = express();
+
+app.use(bodyParser.json()) // 요청을 JSON으로 파싱
+app.use(bodyParser.urlencoded({ extended: false }))
+
+
+app.use(router)
 
 app.use(morgan('combined'));
 app.disable('x-powered-by');
@@ -40,7 +51,6 @@ app.use(
     })
 );
 
-app.use(bodyParser.json());
 app.use(helmet());
 
 app.use(passport.initialize());
@@ -53,12 +63,16 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 
+//Database Connect
+DatabaseConnect()
+
+
 app.get("/", (req, res) => {
-    res.send("server on");
+    res.send("server on").status(200);
 });
 
-app.listen(app.get("port"), app.get("host"), () =>
-    console.log(
-        "Server is running on : " + app.get("host") + ":" + app.get("port")
-    )
-);
+app.listen(PORT, () => {
+    console.log('Server is running on Port: ' + PORT);
+});
+
+
